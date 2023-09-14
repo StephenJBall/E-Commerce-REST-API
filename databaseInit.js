@@ -5,7 +5,7 @@ const { DB } = require('./config');
 
     const userTable = `
         CREATE TABLE IF NOT EXISTS users (
-            id                  INT                 PRIMARY KEY         GENERATE ALWAYS AS IDENTITY NOT NULL,
+            id                  INT                 PRIMARY KEY         GENERATED ALWAYS AS IDENTITY NOT NULL,
             email               VARCHAR(50)         NOT NULL,
             password            VARCHAR(50)         NOT NULL,
             firstname           VARCHAR(50),
@@ -15,7 +15,7 @@ const { DB } = require('./config');
     
     const productTable = `
         CREATE TABLE IF NOT EXISTS products (
-            id                  INT                 PRIMARY KEY         GENERATE ALWAYS AS IDENTITY NOT NULL,
+            id                  INT                 PRIMARY KEY         GENERATED ALWAYS AS IDENTITY NOT NULL,
             name                VARCHAR(50)         NOT NULL,
             price               MONEY               NOT NULL,
             description         VARCHAR(100)        
@@ -23,7 +23,7 @@ const { DB } = require('./config');
 
     const orderTable = `
         CREATE TABLE IF NOT EXISTS orders (
-            id                  INT                 PRIMARY KEY         GENERATE ALWAYS AS IDENTITY NOT NULL,
+            id                  INT                 PRIMARY KEY         GENERATED ALWAYS AS IDENTITY NOT NULL,
             quantity            INT                 NOT NULL,
             total               INT                 NOT NULL,
             created             DATE                NOT NULL,
@@ -36,7 +36,7 @@ const { DB } = require('./config');
 
     const orderItemTable = `
         CREATE TABLE IF NOT EXISTS order_items (
-            id                  INT                 PRIMARY KEY         GENERATE ALWAYS AS IDENTITY NOT NULL,
+            id                  INT                 PRIMARY KEY         GENERATED ALWAYS AS IDENTITY NOT NULL,
             price               MONEY               NOT NULL,
             stock               INT                 NOT NULL,
             order_id            INT                 NOT NULL,
@@ -47,7 +47,7 @@ const { DB } = require('./config');
 
     const cartTable = `
         CREATE TABLE IF NOT EXISTS carts (
-            id                  INT                 PRIMARY KEY         GENERATE ALWAYS AS IDENTITY NOT NULL,
+            id                  INT                 PRIMARY KEY         GENERATED ALWAYS AS IDENTITY NOT NULL,
             created             DATE                NOT NULL,
             modified            DATE                NOT NULL,
             user_id             INT                 NOT NULL,
@@ -56,7 +56,7 @@ const { DB } = require('./config');
 
     const cartItemTable = `
         CREATE TABLE IF NOT EXISTS cart_items (
-            id                  INT                 PRIMARY KEY         GENERATE ALWAYS AS IDENTITY NOT NULL,
+            id                  INT                 PRIMARY KEY         GENERATED ALWAYS AS IDENTITY NOT NULL,
             created             DATE                NOT NULL,
             modified            DATE                NOT NULL,
             cart_id             INT                 NOT NULL,
@@ -88,4 +88,4 @@ const { DB } = require('./config');
         console.log("Error creating database", err); 
     }
 
-}); 
+})(); 
