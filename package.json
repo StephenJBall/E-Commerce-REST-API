@@ -4,7 +4,8 @@
   "description": "pern stack e-commerce app",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "db-init": "node -r dotenv/config databaseInit"
   },
   "author": "",
   "license": "ISC",
