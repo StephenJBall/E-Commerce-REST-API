@@ -1,5 +1,6 @@
 module.exports = {
     PORT: process.env.PORT,
+    SESSION_SECRET: process.env.SESSION_SECRET,
 
     DB: {
         PG_PORT: process.env.PG_PORT,
