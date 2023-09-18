@@ -3,5 +3,5 @@ const passportMount = require('./passport');
 
 module.exports = async (app) => {
     const expressLoaded = await expressMount(app); 
-    const passportLoaded = await passportMount(expressApplied); 
+    const passportLoaded = await passportMount(expressLoaded); 
 }
