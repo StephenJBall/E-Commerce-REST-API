@@ -8,7 +8,7 @@ class Cart {
         this.modified = data.modified || moment.utc.toISOString(); 
     }
 
-    async create(userID) {
+    async create(data) {
         try {
             const statement = `INSERT INTO carts (created, modified, user_id)
                                 VALUES ($1, $2, $2)
