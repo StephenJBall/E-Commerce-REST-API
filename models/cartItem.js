@@ -49,7 +49,7 @@ class CartItem {
         try {
             const statement = `SELECT
                                 cart_items.id AS cartItemId,
-                                product_id
+                                products.id
                                 FROM cart_items
                                 INNER JOIN products ON products.id = cart_items.product_id
                                 WHERE cartItemId = $1`; 
