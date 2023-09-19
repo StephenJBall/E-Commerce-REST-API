@@ -1,6 +1,7 @@
 const httpError = require('http-errors'); 
 const Cart = require('../models/cart'); 
-const CartItem = require('../models/cartItem'); 
+const CartItem = require('../models/cartItem');
+const Order = require('../models/order');  
 
 module.exports.createCart = async (data) => {
     try {
@@ -58,6 +59,34 @@ module.exports.updateItem = async (data) => {
         const cartItem = await CartItem.update(data);
 
         return cartItem;
+    } catch(err) {
+        throw (err); 
+    }
+}
+
+module.exports.checkout = async (cartId, data, paymentInfo) => {
+    try {
+        // this code is included for example
+        const stripe = require('stripe')('stripe_API_KEY'); 
+
+        const cartItems = await CartItem.find(cartId); 
+
+        const total = cartItems.reduce((total, item) => {
+            return total += Number(item.price); 
+        }, 0); 
+
+        const initOrder =  await Order.create(data); 
+        initOrder.addItem(cartItems); 
+
+        const payment = await stripe.charges.create({
+            amount: total, 
+            currency: 'eur',
+            source: paymentInfo.id,
+            description: 'REST API charge'
+        }); 
+
+        return initOrder;
+
     } catch(err) {
         throw (err); 
     }
