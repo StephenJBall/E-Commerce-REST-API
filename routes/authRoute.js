@@ -5,7 +5,7 @@ const Auth = require('../services/authService');
 module.exports = (app, passport) => {
     app.use('/auth', router);
 
-    router.post('register', async (req, res, next) => {
+    router.post('/register', async (req, res, next) => {
 
         try {
             const data = req.params; 
@@ -19,7 +19,7 @@ module.exports = (app, passport) => {
 
     })
 
-    router.post('login', passport.authenticate('local', {failureRediret: 'login'}), async (req, res, next) => {
+    router.post('/login', passport.authenticate('local', {failureRediret: 'login'}), async (req, res, next) => {
         try {
             const {  email, password } = data; 
 
