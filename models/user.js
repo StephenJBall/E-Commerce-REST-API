@@ -8,7 +8,7 @@ class User {
                                 VALUES ($1, $2, $3, $4, $5)
                                 RETURNING *`; 
             
-            const values = [data.email, data.password, data.firstname, data.lastname, data.shipping_address]; 
+            const values = [data.email, data.password, data.firstname, data.surname, data.shipping_address]; 
 
             const result = await db.query(statement, values); 
 

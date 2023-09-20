@@ -1,6 +1,6 @@
 const express = require('express'); 
 const router = express.Router();
-const Auth = require('../services/authService'); 
+const { register, login } = require('../services/authService'); 
 
 module.exports = (app, passport) => {
     app.use('/auth', router);
@@ -10,7 +10,7 @@ module.exports = (app, passport) => {
         try {
             const data = req.params; 
 
-            const response = await Auth.register(data);
+            const response = await register(data);
 
             res.status(200).send(response);
         } catch (err) {
@@ -23,11 +23,11 @@ module.exports = (app, passport) => {
         try {
             const {  email, password } = data; 
 
-            const response = await Auth.login({username: email, password}); 
+            const response = await login({username: email, password}); 
 
             res.status(200).send(response); 
         } catch(err) {
             next (err); 
         }
-    })
+    });
 }
