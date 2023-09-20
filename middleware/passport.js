@@ -25,4 +25,6 @@ module.exports = (app) => {
             }
         }
     ))
+    
+    return passport; 
 }

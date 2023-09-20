@@ -4,7 +4,7 @@ const routeMount = require('../routes');
 
 module.exports = async (app) => {
     const expressLoaded = await expressMount(app); 
-    const passportLoaded = await passportMount(expressLoaded); 
-    
-    await routeMount(app, passportLoaded); 
+    const passport = await passportMount(expressLoaded); 
+
+    await routeMount(app, passport); 
 }
