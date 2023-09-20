@@ -14,7 +14,7 @@ module.exports.register = async (data) => {
 
         return await User.create(data); 
     } catch (err) {
-        throw (err); 
+        throw httpError(500, err); 
     }
 }
 
@@ -34,6 +34,6 @@ module.exports.login = async (data) => {
 
         return user; 
     } catch(err) {
-        throw (err); 
+        throw httpError(500, err); 
     }
 }
