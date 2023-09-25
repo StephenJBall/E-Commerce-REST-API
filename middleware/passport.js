@@ -1,9 +1,10 @@
 const passport = require('passport'); 
 const LocalStrategy = require('passport-local'); 
-const { register, login } = require('../services/authService'); 
+const AuthService = require('../services/authService');
+const AuthServiceInit = new AuthService;
 
 module.exports = (app) => {
-    
+
     app.use(passport.initialize()); 
     app.use(passport.session()); 
 
@@ -18,15 +19,13 @@ module.exports = (app) => {
     passport.use(new LocalStrategy(
         async (username, password, done) => {
             try {
-                const user = await login({ email: username, password }); 
+                const user = await AuthServiceInit.login({ email: username, password }); 
                 return done(user);
             } catch(err) {
                 return done(err); 
             }
         }
     ))
-
-    console.log('passport loaded'); 
     
     return passport; 
 }

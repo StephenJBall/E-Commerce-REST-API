@@ -1,40 +1,48 @@
 const httpError = require('http-errors'); 
-const { findByEmail, create } = require('../models/user'); 
+const UserModel = require('../models/user'); 
+const UserModelInit = new UserModel(); 
 
-module.exports.register = async (data) => {
+module.exports = class AuthService {
 
-    const { email }  = data; 
+    async register(data) {
 
-    try {
-        const user = await findByEmail(email); 
-
-        if(user) {
-            throw httpError(409, 'This email is already in use'); 
-        } else {
-            return await create(data); 
+        const { email }  = data; 
+    
+        try {
+            const user = await UserModelInit.findByEmail(email); 
+    
+            if(user) {
+                throw httpError(409, 'This email is already in use'); 
+            } else {
+                return await create(data); 
+            }
+    
+        } catch(err) {
+            throw httpError(500, err); 
         }
-
-    } catch (err) {
-        throw httpError(500, err); 
     }
+    
+    async login (data) {
+        
+        const { email, password } = data; 
+         
+        try {
+            const user = await UserModelInit.findByEmail(email); 
+            
+            if(!user) {
+                throw httpError(401, 'Email or password is incorrect'); 
+            }
+    
+            if(user.password !== password) {
+                throw httpError(401, 'Email or password is incorrct'); 
+            }
+
+            return user;
+
+        } catch(err) {
+            throw httpError(500, err); 
+        }
+    }
+
 }
 
-module.exports.login = async (data) => {
-    const { email, password } = data; 
-
-    try {
-        const user = await findByEmail(email); 
-
-        if(!user) {
-            throw httpError(404, 'Email or password is incorrect'); 
-        }
-
-        if(user.password !== password) {
-            throw httpError(409, 'Email or password is incorrct'); 
-        }
-
-        return user; 
-    } catch(err) {
-        throw httpError(500, err); 
-    }
-}

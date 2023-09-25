@@ -1,7 +1,7 @@
 const db = require('../db'); 
 
-class User {
-    
+module.exports = class UserModel {
+
     async create(data) {
         try {
             const statement = `INSERT INTO users (email, password, firstname, surname, shipping_address)
@@ -59,7 +59,7 @@ class User {
                 return null; 
             }
         } catch(err) {
-            throw (err); 
+            throw new Error(err);
         }
     }
 
@@ -80,6 +80,4 @@ class User {
         }
     }
 
-}; 
-
-module.exports = new User(); 
+};

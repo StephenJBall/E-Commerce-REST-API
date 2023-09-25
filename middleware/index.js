@@ -1,12 +1,16 @@
-const expressMount = require('./express'); 
-const passportMount = require('./passport'); 
-const routeMount = require('../routes'); 
+const expressLoader = require('./express');
+const passportLoader = require('./passport');
+const routeLoader = require('../routes');
 
 module.exports = async (app) => {
-    const expressLoaded = await expressMount(app); 
-    const passport = await passportMount(expressLoaded); 
 
-    await routeMount(app, passport); 
+  const expressApp = await expressLoader(app);
+  console.log('express loaded'); 
 
-    console.log('middleware loaded'); 
+  const passport = await passportLoader(expressApp);
+  console.log('passport loaded'); 
+
+  await routeLoader(app, passport);
+  console.log('route loaded'); 
+  
 }

@@ -5,11 +5,9 @@ const authRouter = require('./authRoute');
 const cartRouter = require('./cartRoute');
 
 module.exports = (app, passport) => {
-    userRouter(app); 
-    productRouter(app); 
-    orderRouter(app); 
-    authRouter(app, passport); 
-    cartRouter(app); 
-
-    console.log('route loaded'); 
+   authRouter(app, passport); 
+   cartRouter(app);
+   orderRouter(app);
+   productRouter(app);
+   userRouter(app); 
 }
