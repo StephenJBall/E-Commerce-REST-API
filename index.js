@@ -1,12 +1,18 @@
 const express = require('express'); 
 const app = express(); 
-const middleware = require('./middleware'); 
+const bodyParser = require('body-parser'); 
+const testRoute = require('./routes/testRoute'); 
+const authRoute = require('./routes/authRoute'); 
 
 const { PORT } = require('./config'); 
+const middleware = require('./middleware'); 
 
-async function server() {
+function server() {
 
-    middleware(app); 
+    //await middleware(app); 
+    app.use(bodyParser.json()); 
+    app.use('/', testRoute); 
+    app.use('/auth', authRoute); 
 
     app.listen(PORT, () => {
         console.log(`Listening on port ${PORT}`); 

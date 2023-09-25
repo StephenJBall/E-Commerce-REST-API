@@ -10,4 +10,6 @@ module.exports = (app, passport) => {
     orderRouter(app); 
     authRouter(app, passport); 
     cartRouter(app); 
+
+    console.log('route loaded'); 
 }

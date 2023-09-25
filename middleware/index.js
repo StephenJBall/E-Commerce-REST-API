@@ -7,4 +7,6 @@ module.exports = async (app) => {
     const passport = await passportMount(expressLoaded); 
 
     await routeMount(app, passport); 
+
+    console.log('middleware loaded'); 
 }

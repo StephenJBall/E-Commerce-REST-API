@@ -7,7 +7,7 @@ module.exports = (app) => {
     app.use('/products', router); 
 
     router.get('/', async (req, res, next) => {
-
+        
         try {
             const query = req.query; 
 

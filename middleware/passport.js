@@ -25,6 +25,8 @@ module.exports = (app) => {
             }
         }
     ))
+
+    console.log('passport loaded'); 
     
     return passport; 
 }
