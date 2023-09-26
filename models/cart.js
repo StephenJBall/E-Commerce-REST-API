@@ -10,8 +10,11 @@ class Cart {
         this.isActive = data.isActive || true;
       }
 
-    async create(data) {
+    async create(userId) {
         try {
+
+            const data = {userId, ...this}; 
+
             const statement = `INSERT INTO carts (created, modified, user_id)
                                 VALUES ($1, $2, $3)
                                 RETURNING *`;
@@ -20,7 +23,7 @@ class Cart {
 
             const result = await db.query(statement, values); 
 
-            if(result.rows.lenght > 0) {
+            if(result.rows.length > 0) {
                 return result.rows[0]; 
             } else {
                 return null; 
