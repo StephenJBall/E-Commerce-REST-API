@@ -1,11 +1,19 @@
 const db = require('../db');
+const moment = require('moment'); 
 
 class Cart {
+
+    constructor(data = {}) {
+        this.created = data.created || moment.utc().toISOString();
+        this.modified = moment.utc().toISOString();
+        this.converted = data.converted || null;
+        this.isActive = data.isActive || true;
+      }
 
     async create(data) {
         try {
             const statement = `INSERT INTO carts (created, modified, user_id)
-                                VALUES ($1, $2, $2)
+                                VALUES ($1, $2, $3)
                                 RETURNING *`;
             
             const values = [data.created, data.modified, data.userId]; 

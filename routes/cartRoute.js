@@ -1,16 +1,29 @@
 const express = require('express');
 const router = express.Router();
-const Cart = require('../services/cartService'); 
+const CartService = require('../services/cartService'); 
+const CartInit = new CartService(); 
 
 module.exports = (app) => {
 
     app.use('/carts', router);
 
+    router.post('/', async (req, res, next) => {
+        try {
+            const { id } = req.user; 
+
+            const response = await CartInit.createCart(id); 
+
+            res.status(200).send(response); 
+        } catch(err) {
+            next(err); 
+        }
+    })
+
     router.get('/:cartId', async (req, res, next) => {
         try {
             const { id } = req.params; 
 
-            const response = await Cart.getCart(id); 
+            const response = await CartInit.getCart(id); 
 
             res.status(200).send(response);
         } catch(err) {
@@ -22,7 +35,7 @@ module.exports = (app) => {
         try {
             const data = req.params; 
 
-            const response = await Cart.addItem(data);
+            const response = await CartInit.addItem(data);
 
             res.status(200).send(response); 
         } catch(err) {
@@ -34,7 +47,7 @@ module.exports = (app) => {
         try {
             const data = req.params;
 
-            const response = await Cart.removeItem(data); 
+            const response = await CartInit.removeItem(data); 
 
             res.status(200).send(response);
         } catch(err) {
@@ -46,7 +59,7 @@ module.exports = (app) => {
         try {
             const data = req.params; 
 
-            const response = await Cart.updateItem(data); 
+            const response = await CartInit.updateItem(data); 
 
             res.status(200).send(response);
         } catch(err) {
@@ -59,7 +72,7 @@ module.exports = (app) => {
             const { data } = req.params; 
             const { cartId, paymentInfo } = req.body; 
 
-            const response = await Cart.checkout(cartId, data, paymentInfo); 
+            const response = await CartInit.checkout(cartId, data, paymentInfo); 
 
             res.status(200).send(response); 
         } catch(err) {
