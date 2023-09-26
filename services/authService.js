@@ -1,5 +1,6 @@
 const httpError = require('http-errors'); 
 const UserModel = require('../models/user'); 
+const bodyParser = require('body-parser');
 const UserModelInit = new UserModel(); 
 
 module.exports = class AuthService {
@@ -14,7 +15,7 @@ module.exports = class AuthService {
             if(user) {
                 throw httpError(409, 'This email is already in use'); 
             } else {
-                return await create(data); 
+                return await UserModelInit.create(data); 
             }
     
         } catch(err) {
@@ -25,6 +26,7 @@ module.exports = class AuthService {
     async login (data) {
         
         const { email, password } = data; 
+        
          
         try {
             const user = await UserModelInit.findByEmail(email); 
@@ -36,8 +38,8 @@ module.exports = class AuthService {
             if(user.password !== password) {
                 throw httpError(401, 'Email or password is incorrct'); 
             }
-
-            return user;
+            
+            return user; 
 
         } catch(err) {
             throw httpError(500, err); 
