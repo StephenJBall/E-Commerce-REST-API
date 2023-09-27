@@ -21,7 +21,7 @@ module.exports = (app) => {
 
     router.get('/:cartId', async (req, res, next) => {
         try {
-            const { id } = req.params; 
+            const { id } = req.user;
 
             const response = await CartInit.getCart(id); 
 

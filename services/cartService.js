@@ -7,7 +7,6 @@ module.exports = class CartService {
     async createCart (data) {
 
         const { userId } = data; 
-        console.log(userId); 
 
         try {
             const cart = await Cart.create(userId); 
