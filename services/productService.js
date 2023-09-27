@@ -3,10 +3,10 @@ const Product = require('../models/product');
 
 module.exports.getProduct = async (data) => {
 
-    const { id } = data; 
+    const { name } = data; 
 
     try {
-        const product = await Product.findById(id); 
+        const product = await Product.findByName(name); 
 
         if(!product) {
             return httpError(404, 'Product not found'); 
