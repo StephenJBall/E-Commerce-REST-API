@@ -40,7 +40,7 @@ module.exports = class CartService {
         try {
             const cart = await Cart.findByUserID(userId);
     
-            const cartItem = await CartItem.create({cart_id: cart.id, ...item}); 
+            const cartItem = await CartItem.create({ cart_id: cart.id, ...item}); 
     
             return cartItem; 
         } catch(err) {

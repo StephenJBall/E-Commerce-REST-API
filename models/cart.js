@@ -36,7 +36,7 @@ class Cart {
     async findByUserID(userID) {
         try {
             const statement = `SELECT * FROM carts
-                                WHERE user_id = $1`; 
+                                WHERE "user_id" = $1`; 
 
             const result = await db.query(statement, [userID]); 
 
