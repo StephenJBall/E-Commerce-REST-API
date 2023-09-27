@@ -11,7 +11,7 @@ module.exports = (app) => {
         try {
             const { id } = req.user; 
 
-            const response = await CartInit.createCart(id); 
+            const response = await CartInit.createCart({ userId: id }); 
 
             res.status(200).send(response); 
         } catch(err) {
