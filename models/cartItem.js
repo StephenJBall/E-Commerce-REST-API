@@ -1,16 +1,19 @@
 const db = require('../db'); 
+const moment = require('moment'); 
 
 class CartItem {
 
     async create(data) {
+        
         try {
-            const statement = `INSERT INTO cart_items (created, modified, product_id, cart_id)
-                                VALUES ($1, $2, $3, $4)
+
+            const statement = `INSERT INTO cart_items (product_id, cart_id)
+                                VALUES ($1, $2)
                                 RETURNING *`; 
-
-            const values = [data.created, data.modified, data.product_id, data.cart_id]; 
+            
+            const values = [data.product_id, data.cart_id]; 
             const result = await db.query(statement, values); 
-
+            
             if(result.rows.length > 0) {
                 return result.rows[0];
             } else {
@@ -25,10 +28,8 @@ class CartItem {
         try {
             const statement = `UPDATE cart_items
                                 SET 
-                                created = $2,
-                                modified = $3,
-                                product_id = $4,
-                                cart_id = $5
+                                product_id = $2,
+                                cart_id = $3
                                 WHERE id = $1`; 
             
             const values = [data.id, data.created, data.mofidied, data.product_id, data.cart_id]; 

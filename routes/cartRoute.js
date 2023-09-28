@@ -34,9 +34,9 @@ module.exports = (app) => {
     router.post('/:cartId/items', async (req, res, next) => {
         try {
             const { id } = req.user; 
-            const data = req.params; 
+            const data = req.body; 
 
-            const response = await CartInit.addItem(data, id);
+            const response = await CartInit.addItem(id, data);
 
             res.status(200).send(response); 
         } catch(err) {
