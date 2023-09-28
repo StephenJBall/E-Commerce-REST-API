@@ -28,6 +28,7 @@ class CartItem {
         try {
             const statement = `UPDATE cart_items
                                 SET 
+
                                 product_id = $2,
                                 cart_id = $3
                                 WHERE id = $1`; 
@@ -53,7 +54,7 @@ class CartItem {
                                 products.id
                                 FROM cart_items
                                 INNER JOIN products ON products.id = cart_items.product_id
-                                WHERE cart_items.id = $1`; 
+                                WHERE cart_items.cart_id = $1`; 
     
             const result = await db.query(statement, [cartId]);
 
