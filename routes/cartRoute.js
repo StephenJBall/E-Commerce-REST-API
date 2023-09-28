@@ -44,11 +44,12 @@ module.exports = (app) => {
         }
     })
 
-    router.delete('/:cartId/items', async (req, res, next) => {
+    router.delete('/:cartId/items/:cartItemId', async (req, res, next) => {
         try {
-            const data = req.params;
+            const { cartItemId } = req.params;
+            console.log(cartItemId); 
 
-            const response = await CartInit.removeItem(data); 
+            const response = await CartInit.removeItem(cartItemId); 
 
             res.status(200).send(response);
         } catch(err) {
