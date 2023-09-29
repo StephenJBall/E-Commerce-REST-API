@@ -1,14 +1,32 @@
 const db = require('../db'); 
+const moment = require('moment');
+const OrderItem = require('../models/orderItem');  
 
-class Order {
+module.exports = class Order {
+
+    constructor(data = {}) {
+        this.created = data.created || moment.utc().toISOString();
+        this.items = data.items || [];
+        this.modified = moment.utc().toISOString();
+        this.status = data.status || 'PENDING';
+        this.total = data.total || 0;
+        this.userId = data.userId || null;
+      }
+
+      addItems(items) {
+        this.items = items.map(item => new OrderItem(item));
+      }
     
-    async create(data) {
+    async create(userId) {
         try {
-            const statement = `INSERT INTO orders (quantity, total, created, modified)
+
+            const data = { userId, ...this }
+            
+            const statement = `INSERT INTO orders (user_id, total, created, modified)
                                 VALUES ($1, $2, $3, $4)
                                 RETURNING *`;
 
-            const values = [data.quantity, data.total, data.created, data.modified];
+            const values = [data.userId, data.total, data.created, data.modified];
 
             const result = await db.query(statement, values);
 
@@ -81,5 +99,3 @@ class Order {
         }
     }
 }
-
-module.exports = new Order(); 

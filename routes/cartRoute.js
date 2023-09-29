@@ -71,10 +71,10 @@ module.exports = (app) => {
 
     router.post('/:cartId/checkout', async (req, res, next) => {
         try {
-            const { data } = req.params; 
+            const { id } = req.user;
             const { cartId, paymentInfo } = req.body; 
 
-            const response = await CartInit.checkout(cartId, data, paymentInfo); 
+            const response = await CartInit.checkout(cartId, id, paymentInfo); 
 
             res.status(200).send(response); 
         } catch(err) {

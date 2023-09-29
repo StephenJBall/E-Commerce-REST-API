@@ -24,14 +24,11 @@ const { DB } = require('./config');
     const orderTable = `
         CREATE TABLE IF NOT EXISTS orders (
             id                  INT                 PRIMARY KEY         GENERATED ALWAYS AS IDENTITY NOT NULL,
-            quantity            INT                 NOT NULL,
             total               INT                 NOT NULL,
             created             DATE                NOT NULL,
             modified            DATE                NOT NULL,
             user_id             INT                 NOT NULL,
-            product_id          INT                 NOT NULL,
-            FOREIGN KEY (user_id) REFERENCES users(id),
-            FOREIGN KEY (product_id) REFERENCES products(id)
+            FOREIGN KEY (user_id) REFERENCES users(id)
         )`
 
     const orderItemTable = `

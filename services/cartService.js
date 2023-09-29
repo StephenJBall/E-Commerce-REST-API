@@ -68,7 +68,7 @@ module.exports = class CartService {
         }
     }
     
-    async checkout (cartId, data, paymentInfo) {
+    async checkout (cartId, userId, paymentInfo) {
         try {
             // this code is included for example
             const stripe = require('stripe')('stripe_API_KEY'); 
@@ -79,8 +79,9 @@ module.exports = class CartService {
                 return total += Number(item.price); 
             }, 0); 
     
-            const initOrder =  await Order.create(data); 
-            initOrder.addItem(cartItems); 
+            const OrderInit =  new Order({ total, userId }); 
+            OrderInit.addItems(cartItems); 
+            await OrderInit.create(); 
     
             const payment = await stripe.charges.create({
                 amount: total, 
