@@ -1,0 +1,94 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: E-CommerceRestApi
+  description: A simple e-commerce RESTful API
+
+paths: 
+  /auth/register:
+    post: 
+      summary: Registers a new user
+      description: Registers a new user
+      responses:
+        200:
+          description: Successful registration
+          content:
+            application/json:
+              schema:
+                type: object
+        409:
+          description: User already exists
+          content:
+            application/json:
+              schema:
+                type: object
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+  /auth/login:
+    post:
+      summary: Login user
+      description: Logs in an already registered user
+      responses:
+        200:
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+        401: 
+          description: Email or password is incorrect
+          content:
+            application/json:
+              schema:
+                type: object
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+  /users/{userId}:
+    get:
+      summary: Retrieves user info
+      description: Retrieves user info based on user ID
+      parameters:
+       - name: userId
+         in: path
+         description: Id of user to retrieve
+         required: true
+         schema:
+          type: integer
+      responses:
+        200:
+          description: User retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+        404:
+          description: User not found
+          content:
+            application/json:
+              schema:
+                type: object
+    put:
+      summary: Updates user info
+      description: Updates user info
+      parameters:
+       - name: userId
+         in: path
+         description: Id of user to update
+         required: true
+         schema:
+          type: integer
+      responses:
+        200: 
+          description: User updated
+          content:
+            application/json:
+              schema:
+                type: object
