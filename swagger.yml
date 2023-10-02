@@ -92,3 +92,156 @@ paths:
             application/json:
               schema:
                 type: object
+  /products/:
+    get:
+      summary: Retrieves all products
+      description: Retrieves all products
+      responses:
+        200:
+          description: Products retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+        404:
+          description: Products not found
+          content:
+            application/json:
+              schema:
+                type: object
+  /products/{productId}:
+    put:
+      summary: Updates a product
+      description: Updates a product that matches the specified Product ID
+      parameters:
+        - name: productId
+          in: path
+          description: Id of product to update
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Product updated
+          content:
+            application/json:
+              schema:
+                type: object
+  /carts/:
+    post:
+      summary: creates a cart
+      description: creates a cart based on the session user ID
+      responses:
+        200:
+          description: Cart created
+          content:
+            application/json:
+              schema:
+                type: object
+  /carts/{cartId}:
+    get:
+      summary: retrieves a cart
+      description: retrieves a cart based on cart ID
+      parameters: 
+        - name: cartId
+          in: path
+          description: Id of cart to retrieve
+          required: true
+          schema: 
+            type: integer
+      responses:
+        200:
+          description: Cart retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+        404:
+          description: Cart not found
+          content:
+            application/json:
+              schema:
+                type: object
+  /carts/{cartId}/items:
+    post:
+      summary: adds an item to the cart
+      description: adds an item to the cart specified in the cart ID path
+      parameters: 
+        - name: cartId
+          in: path
+          description: Id of cart to add item to
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Item added to cart
+          content:
+            application/json:
+              schema:
+                type: object
+  /carts/{cartId}/items/{cartItemId}:
+    delete:
+      summary: deletes an item from a cart
+      description: deletes a specific item from a specified cart
+      parameters: 
+        - name: cartId
+          in: path
+          description: Id of cart to remove item from
+          required: true
+          schema:
+            type: object
+        - name: cartItemId
+          in: path
+          description: Id of item to remove from cart
+          required: true
+          schema:
+            type: object
+      responses:
+        200:
+          description: Item removed from cart
+          content:
+            application/json:
+              schema:
+                type: object
+    put:
+      summary: updates an item in the cart
+      description: updates item with specified item ID in user cart
+      parameters: 
+        - name: cartId
+          in: path
+          description: Id of cart with item to update
+          required: true
+          schema:
+            type: object
+        - name: cartItemId
+          in: path
+          description: Id of item to update in cart
+          required: true
+          schema:
+            type: object
+      responses:
+        200:
+          description: Item updated in cart
+          content:
+            application/json:
+              schema:
+                type: object
+  /carts/{cartId}/checkout:
+    post:
+      summary: Checkout for user's cart
+      description: Converts user's cart contents into an order and processes user payment
+      parameters: 
+        - name: cartId
+          in: path
+          description: Id of cart to be checked out
+          required: true
+          schema:
+            type: object
+      responses:
+        200:
+          description: Cart checkout complete
+          content:
+            application/json:
+              schema:
+                type: object
