@@ -245,3 +245,50 @@ paths:
             application/json:
               schema:
                 type: object
+  /orders/:
+    get:
+      summary: Retrieves order
+      description: Retrieves order based on id of user currently logged in
+      responses:
+        200:
+          description: order retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+  /orders/{orderId}:
+    get:
+      summary: Gets specific order
+      description: Gets specific order based on provided order Id
+      parameters: 
+        - name: orderId
+          in: path
+          description: Id of order to be retrieved
+          required: true
+          schema:
+            type: object
+      responses:
+        200:
+          description: order retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+  /orders/{userId}:
+    get:
+      summary: Gets specific order
+      description: Gets specific order based on provided user Id
+      parameters: 
+        - name: userId
+          in: path
+          description: User id associated with order
+          required: true
+          schema:
+            type: object
+      responses:
+        200:
+          description: Order retrieved successfully from user id provided
+          content:
+            application/json:
+              schema:
+                type: object
