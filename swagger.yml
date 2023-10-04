@@ -12,22 +12,12 @@ paths:
       responses:
         200:
           description: Successful registration
-          content:
-            application/json:
-              schema:
-                type: object
         409:
           description: User already exists
-          content:
-            application/json:
-              schema:
-                type: object
         500:
           description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                type: object
+      requestBody:
+        $ref: '#/components/requestBodies/User'
   /auth/login:
     post:
       summary: Login user
@@ -35,22 +25,12 @@ paths:
       responses:
         200:
           description: Login successful
-          content:
-            application/json:
-              schema:
-                type: object
         401: 
           description: Email or password is incorrect
-          content:
-            application/json:
-              schema:
-                type: object
         500:
           description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                type: object
+      requestBody:
+        $ref: '#/components/requestBodies/UserLogin'
   /users/{userId}:
     get:
       summary: Retrieves user info
@@ -292,3 +272,36 @@ paths:
             application/json:
               schema:
                 type: object
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        email: 
+          type: string
+        password: 
+          type: string
+        firstname:
+          type: string
+        surname:
+          type: string
+        shipping_address:
+          type: string
+    UserLogin:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+  requestBodies:
+    User:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/User'
+    UserLogin:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UserLogin'
